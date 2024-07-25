@@ -7,19 +7,24 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.zhangke.imageviewer.ImageViewer
 import com.zhangke.imageviewer.rememberImageViewerState
 import com.zhangke.imageviewer.sample.ui.theme.ImageViewerTheme
+import kotlinx.coroutines.delay
 
 class ImageViewerActivity : ComponentActivity() {
 
@@ -56,7 +61,6 @@ class ImageViewerActivity : ComponentActivity() {
                     .padding(innerPadding)
             ) {
                 val state = rememberImageViewerState(
-                    aspectRatio = 1F,
                     onDragDismissRequest = {
                         finish()
                     },
@@ -65,9 +69,17 @@ class ImageViewerActivity : ComponentActivity() {
                     state = state,
                     modifier = Modifier.fillMaxSize(),
                 ) {
+                    var finalImageId by remember {
+                        mutableIntStateOf(R.drawable.small_luancher)
+                    }
+                    LaunchedEffect(Unit) {
+                        delay(1000)
+                        finalImageId = R.drawable.horizontal_demo_image
+                    }
                     Image(
                         painter = painterResource(id = imageId),
                         contentDescription = "Sample Image",
+                        contentScale = ContentScale.FillBounds,
                     )
                 }
             }

@@ -73,6 +73,14 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Text(text = "Small Image")
                 }
+                Button(
+                    modifier = Modifier.padding(top = 16.dp),
+                    onClick = {
+                        ImagePagerActivity.open(this@MainActivity)
+                    },
+                ) {
+                    Text(text = "Image Pager")
+                }
             }
         }
     }

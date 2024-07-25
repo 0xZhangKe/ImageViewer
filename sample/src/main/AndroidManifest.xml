@@ -26,6 +26,10 @@
         <activity
             android:name=".ImageViewerActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ImagePagerActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
