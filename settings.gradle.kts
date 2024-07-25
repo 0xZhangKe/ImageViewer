@@ -20,5 +20,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ImageViewer"
-include(":sample")
-include(":core")
+val isInJitPack = System.getenv()["JITPACK"] == "true"
+if (!isInJitPack) {
+    include(":sample")
+}
+include(":ImageViewer")
