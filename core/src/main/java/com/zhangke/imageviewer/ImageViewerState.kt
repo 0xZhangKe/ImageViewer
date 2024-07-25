@@ -1,5 +1,6 @@
 package com.zhangke.imageviewer
 
+import android.util.Log
 import androidx.compose.animation.core.AnimationScope
 import androidx.compose.animation.core.AnimationState
 import androidx.compose.animation.core.AnimationVector1D
@@ -25,7 +26,6 @@ import kotlin.math.abs
 
 @Composable
 fun rememberImageViewerState(
-    aspectRatio: Float,
     minimumScale: Float = 1f,
     maximumScale: Float = 3f,
     onDragDismissRequest: (() -> Unit)? = null,
@@ -35,7 +35,6 @@ fun rememberImageViewerState(
         saver = ImageViewerState.Saver,
     ) {
         ImageViewerState(
-            aspectRatio = aspectRatio,
             minimumScale = minimumScale,
             maximumScale = maximumScale,
         )
@@ -46,7 +45,6 @@ fun rememberImageViewerState(
 
 @Stable
 class ImageViewerState(
-    private val aspectRatio: Float,
     private val minimumScale: Float = 1f,
     private val maximumScale: Float = 3f,
 ) {
@@ -62,6 +60,8 @@ class ImageViewerState(
     val currentHeightPixel: Float by _currentHeightPixel
     val currentOffsetXPixel: Float by _currentOffsetXPixel
     val currentOffsetYPixel: Float by _currentOffsetYPixel
+
+    private var aspectRatio: Float = 1F
 
     private var layoutSize: Size = Size.Zero
     private val standardWidth: Float get() = layoutSize.width
@@ -83,6 +83,13 @@ class ImageViewerState(
 
     fun updateLayoutSize(size: Size) {
         layoutSize = size
+        onLayoutSizeChanged()
+    }
+
+    fun setImageAspectRatio(ratio: Float) {
+        Log.d("F_TEST", "updateImageAspectRatio($ratio)")
+        if (aspectRatio.equalsExactly(ratio)) return
+        aspectRatio = ratio
         onLayoutSizeChanged()
     }
 
@@ -208,7 +215,7 @@ class ImageViewerState(
         }
     }
 
-    fun startDismiss(){
+    fun startDismiss() {
         onDragDismissRequest?.invoke()
     }
 
@@ -322,16 +329,14 @@ class ImageViewerState(
         val Saver: Saver<ImageViewerState, *> = listSaver(
             save = {
                 listOf<Any>(
-                    it.aspectRatio,
                     it.minimumScale,
                     it.maximumScale,
                 )
             },
             restore = {
                 ImageViewerState(
-                    aspectRatio = it[0] as Float,
-                    minimumScale = it[5] as Float,
-                    maximumScale = it[6] as Float,
+                    minimumScale = it[0] as Float,
+                    maximumScale = it[1] as Float,
                 )
             }
         )

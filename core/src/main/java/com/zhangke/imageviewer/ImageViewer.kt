@@ -1,9 +1,10 @@
 package com.zhangke.imageviewer
 
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
@@ -16,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.input.pointer.util.addPointerInputChange
@@ -33,8 +35,8 @@ private val infinityConstraints = Constraints()
 
 @Composable
 fun ImageViewer(
-    state: ImageViewerState,
     modifier: Modifier = Modifier,
+    state: ImageViewerState = rememberImageViewerState(),
     content: @Composable () -> Unit,
 ) {
     val density = LocalDensity.current
@@ -86,7 +88,7 @@ fun ImageViewer(
                 }
             },
         content = {
-            Box(
+            Layout(
                 modifier = Modifier
                     .offset(
                         x = state.currentOffsetXPixel.pxToDp(density),
@@ -94,14 +96,27 @@ fun ImageViewer(
                     )
                     .width(state.currentWidthPixel.pxToDp(density))
                     .height(state.currentHeightPixel.pxToDp(density))
-            ) {
-                content()
+                    .background(Color.Yellow),
+                content = {
+                    content()
+                },
+            ) { measurables, constraints ->
+                if (measurables.size > 1) {
+                    throw IllegalStateException("ImageViewer is only allowed to have one children!")
+                }
+                val firstMeasurable = measurables.first()
+                val placeable = firstMeasurable.measure(constraints)
+                val minWidth = firstMeasurable.minIntrinsicWidth(100)
+                val minHeight = firstMeasurable.minIntrinsicHeight(100)
+                if (minWidth > 0 && minHeight > 0) {
+                    state.setImageAspectRatio(minWidth / minHeight.toFloat())
+                }
+                layout(constraints.maxWidth, constraints.maxHeight) {
+                    placeable.placeRelative(0, 0)
+                }
             }
         },
     ) { measurables, constraints ->
-        if (measurables.size > 1) {
-            throw IllegalStateException("ImageViewer is only allowed to have one children!")
-        }
         val placeable = measurables.first().measure(infinityConstraints)
         layout(constraints.maxWidth, constraints.maxHeight) {
             placeable.placeRelative(0, 0)
