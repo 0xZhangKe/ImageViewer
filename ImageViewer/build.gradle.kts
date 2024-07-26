@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("maven-publish")
 }
 
 android {
@@ -47,4 +48,23 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.compose.foundation)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven"){
+            groupId = "com.zhangke.imageviewer"
+            artifactId = "imageviewer"
+            version = "0.0.1"
+        }
+//        release(MavenPublication) {
+//            groupId = "com.zhangke.imageviewer"
+//            artifactId = "imageviewer"
+//            version = "0.0.1"
+//
+//            afterEvaluate {
+//                from(components.release)
+//            }
+//        }
+    }
 }
