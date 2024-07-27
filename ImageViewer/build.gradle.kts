@@ -4,9 +4,6 @@ plugins {
     id("maven-publish")
 }
 
-//group = "com.zhangke.imageviewer"
-//version = "0.0.8"
-
 android {
     namespace = "com.zhangke.imageviewer"
     compileSdk = 34
@@ -52,6 +49,19 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.compose.foundation)
+}
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "com.zhangke.imageviewer"
+                artifactId = "image-viewer"
+                version = "0.0.9"
+
+                from(components["release"])
+            }
+        }
+    }
 }
 
 //configure<PublishingExtension> {
