@@ -4,8 +4,8 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.zhangke.imageviewer"
-version = "0.0.8"
+//group = "com.zhangke.imageviewer"
+//version = "0.0.8"
 
 android {
     namespace = "com.zhangke.imageviewer"
@@ -61,15 +61,15 @@ dependencies {
 //            artifactId = "imageviewer"
 //            version = "0.0.8"
 //        }
-////        release(MavenPublication) {
-////            groupId = "com.zhangke.imageviewer"
-////            artifactId = "imageviewer"
-////            version = "0.0.1"
-////
-////            afterEvaluate {
-////                from(components.release)
-////            }
-////        }
+//        release(MavenPublication) {
+//            groupId = "com.zhangke.imageviewer"
+//            artifactId = "imageviewer"
+//            version = "0.0.1"
+//
+//            afterEvaluate {
+//                from(components.release)
+//            }
+//        }
 //    }
 //}
 
