@@ -1,6 +1,5 @@
 package com.zhangke.imageviewer
 
-import android.util.Log
 import androidx.compose.animation.core.AnimationScope
 import androidx.compose.animation.core.AnimationState
 import androidx.compose.animation.core.AnimationVector1D
@@ -87,7 +86,6 @@ class ImageViewerState(
     }
 
     fun setImageAspectRatio(ratio: Float) {
-        Log.d("F_TEST", "updateImageAspectRatio($ratio)")
         if (aspectRatio.equalsExactly(ratio)) return
         aspectRatio = ratio
         onLayoutSizeChanged()
