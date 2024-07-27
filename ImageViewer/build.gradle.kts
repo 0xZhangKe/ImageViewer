@@ -56,7 +56,7 @@ afterEvaluate {
             create<MavenPublication>("maven") {
                 groupId = "com.zhangke.imageviewer"
                 artifactId = "image-viewer"
-                version = "0.0.9"
+                version = "0.1.0"
 
                 from(components["release"])
             }
