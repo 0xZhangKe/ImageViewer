@@ -8,8 +8,6 @@ import androidx.compose.foundation.gestures.calculateZoom
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.positionChanged
-import androidx.compose.ui.util.fastAny
-import androidx.compose.ui.util.fastForEach
 import kotlin.math.abs
 
 internal suspend fun PointerInputScope.detectZoom(
@@ -23,7 +21,7 @@ internal suspend fun PointerInputScope.detectZoom(
         awaitFirstDown(requireUnconsumed = false)
         do {
             val event = awaitPointerEvent()
-            val canceled = event.changes.fastAny { it.isConsumed }
+            val canceled = event.changes.any { it.isConsumed }
             if (!canceled) {
                 val zoomChange = event.calculateZoom()
 
@@ -43,13 +41,13 @@ internal suspend fun PointerInputScope.detectZoom(
                     if (zoomChange != 1f) {
                         onGesture(centroid, zoomChange)
                     }
-                    event.changes.fastForEach {
+                    event.changes.forEach {
                         if (it.positionChanged()) {
                             it.consume()
                         }
                     }
                 }
             }
-        } while (!canceled && event.changes.fastAny { it.pressed })
+        } while (!canceled && event.changes.any { it.pressed })
     }
 }
