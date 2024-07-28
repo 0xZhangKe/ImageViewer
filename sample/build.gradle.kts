@@ -47,7 +47,7 @@ android {
 dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.github.0xZhangKe:ImageViewer:1.0.0")
+    implementation("com.github.0xZhangKe:ImageViewer:1.0.2")
 
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)

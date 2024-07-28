@@ -1,6 +1,5 @@
 package com.zhangke.imageviewer
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
@@ -16,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.input.pointer.util.addPointerInputChange
@@ -91,11 +89,10 @@ fun ImageViewer(
                 modifier = Modifier
                     .offset(
                         x = state.currentOffsetXPixel.pxToDp(density),
-                        y = state.currentOffsetYPixel.pxToDp(density)
+                        y = state.currentOffsetYPixel.pxToDp(density),
                     )
                     .width(state.currentWidthPixel.pxToDp(density))
-                    .height(state.currentHeightPixel.pxToDp(density))
-                    .background(Color.Yellow),
+                    .height(state.currentHeightPixel.pxToDp(density)),
                 content = {
                     content()
                 },
