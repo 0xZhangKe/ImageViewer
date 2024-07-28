@@ -55,10 +55,10 @@ class ImageViewerState(
     private var _currentOffsetXPixel = mutableFloatStateOf(0F)
     private var _currentOffsetYPixel = mutableFloatStateOf(0F)
 
-    val currentWidthPixel: Float by _currentWidthPixel
-    val currentHeightPixel: Float by _currentHeightPixel
-    val currentOffsetXPixel: Float by _currentOffsetXPixel
-    val currentOffsetYPixel: Float by _currentOffsetYPixel
+    internal val currentWidthPixel: Float by _currentWidthPixel
+    internal val currentHeightPixel: Float by _currentHeightPixel
+    internal val currentOffsetXPixel: Float by _currentOffsetXPixel
+    internal val currentOffsetYPixel: Float by _currentOffsetYPixel
 
     private var aspectRatio: Float = 1F
 
@@ -66,7 +66,7 @@ class ImageViewerState(
     private val standardWidth: Float get() = layoutSize.width
     private val standardHeight: Float get() = standardWidth / aspectRatio
 
-    val exceed: Boolean get() = !_currentWidthPixel.floatValue.equalsExactly(layoutSize.width)
+    internal val exceed: Boolean get() = !_currentWidthPixel.floatValue.equalsExactly(layoutSize.width)
 
     private var flingAnimation: AnimationScope<Offset, AnimationVector2D>? = null
     private var scaleAnimation: AnimationScope<Float, AnimationVector1D>? = null
@@ -80,12 +80,12 @@ class ImageViewerState(
             )
         }
 
-    fun updateLayoutSize(size: Size) {
+    internal fun updateLayoutSize(size: Size) {
         layoutSize = size
         onLayoutSizeChanged()
     }
 
-    fun setImageAspectRatio(ratio: Float) {
+    internal fun setImageAspectRatio(ratio: Float) {
         if (aspectRatio.equalsExactly(ratio)) return
         aspectRatio = ratio
         onLayoutSizeChanged()
@@ -98,7 +98,7 @@ class ImageViewerState(
         _currentOffsetYPixel.floatValue = layoutSize.height / 2F - standardHeight / 2F
     }
 
-    suspend fun animateToStandard() {
+    internal suspend fun animateToStandard() {
         val layoutSize = layoutSize
         if (layoutSize == Size.Zero) return
         val targetWidth = standardWidth
@@ -111,7 +111,7 @@ class ImageViewerState(
         )
     }
 
-    suspend fun animateToBig(point: Offset) {
+    internal suspend fun animateToBig(point: Offset) {
         val layoutSize = layoutSize
         if (layoutSize == Size.Zero) return
 
@@ -140,7 +140,7 @@ class ImageViewerState(
         )
     }
 
-    fun drag(dragAmount: Offset) {
+    internal fun drag(dragAmount: Offset) {
         cancelAnimation()
         if (exceed) {
             dragForVisit(dragAmount)
@@ -168,7 +168,7 @@ class ImageViewerState(
         }
     }
 
-    suspend fun dragStop(initialVelocity: Velocity) {
+    internal suspend fun dragStop(initialVelocity: Velocity) {
         cancelAnimation()
         if (!exceed) {
             dragStopForExit()
@@ -213,7 +213,7 @@ class ImageViewerState(
         }
     }
 
-    fun startDismiss() {
+    internal fun startDismiss() {
         onDragDismissRequest?.invoke()
     }
 
