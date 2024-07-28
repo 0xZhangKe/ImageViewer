@@ -42,17 +42,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.6"
     }
-//    packaging {
-//        resources {
-//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//        }
-//    }
 }
 
 dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(project(":ImageViewer"))
+    implementation("com.github.0xZhangKe:ImageViewer:1.0.0")
 
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)
