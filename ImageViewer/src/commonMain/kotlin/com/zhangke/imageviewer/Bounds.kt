@@ -1,6 +1,9 @@
 package com.zhangke.imageviewer
 
 import androidx.compose.ui.geometry.Offset
+import kotlin.ranges.coerceAtLeast
+import kotlin.ranges.coerceAtMost
+import kotlin.ranges.rangeTo
 
 internal data class Bounds(
     val left: Float,

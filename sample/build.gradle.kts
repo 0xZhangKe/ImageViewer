@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.jetbrains.compose.compiler)
+    alias(libs.plugins.jetbrains.compose)
 }
 
 android {
@@ -48,11 +49,14 @@ dependencies {
 //    implementation("com.github.0xZhangKe:ImageViewer:1.0.3")
     implementation(project(":ImageViewer"))
 
+    implementation(compose.runtime)
+    implementation(compose.ui)
+    implementation(compose.foundation)
+
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.activity)
 }

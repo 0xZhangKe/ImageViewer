@@ -21,7 +21,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.unit.Velocity
+import kotlin.apply
 import kotlin.math.abs
+import kotlin.ranges.coerceAtLeast
+import kotlin.ranges.coerceAtMost
+import kotlin.takeIf
 
 @Composable
 fun rememberImageViewerState(

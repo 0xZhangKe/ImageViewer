@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.2"
+agp = "8.5.0"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -7,6 +7,7 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 activityKtx = "1.9.3"
 activityCompose = "1.9.3"
+compose-multiplatform = "1.6.11"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -15,7 +16,6 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version="1.5.4" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version="1.5.4" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version="1.5.4" }
 #androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -25,8 +25,9 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3",
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
-
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
