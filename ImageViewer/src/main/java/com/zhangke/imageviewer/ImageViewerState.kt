@@ -60,13 +60,19 @@ class ImageViewerState(
     internal val currentOffsetXPixel: Float by _currentOffsetXPixel
     internal val currentOffsetYPixel: Float by _currentOffsetYPixel
 
-    private var aspectRatio: Float = 1F
+    private var imageAspectRatio: Float = 1F
 
     private var layoutSize: Size = Size.Zero
     private val standardWidth: Float get() = layoutSize.width
-    private val standardHeight: Float get() = standardWidth / aspectRatio
+    private val standardHeight: Float get() = standardWidth / imageAspectRatio
 
     internal val exceed: Boolean get() = !_currentWidthPixel.floatValue.equalsExactly(layoutSize.width)
+
+    internal val isBigVerticalImage: Boolean
+        get() {
+            if (layoutSize == Size.Zero) return false
+            return imageAspectRatio <= layoutSize.aspectRatio
+        }
 
     private var flingAnimation: AnimationScope<Offset, AnimationVector2D>? = null
     private var scaleAnimation: AnimationScope<Float, AnimationVector1D>? = null
@@ -86,8 +92,8 @@ class ImageViewerState(
     }
 
     internal fun setImageAspectRatio(ratio: Float) {
-        if (aspectRatio.equalsExactly(ratio)) return
-        aspectRatio = ratio
+        if (imageAspectRatio.equalsExactly(ratio)) return
+        imageAspectRatio = ratio
         onLayoutSizeChanged()
     }
 
@@ -95,7 +101,11 @@ class ImageViewerState(
         _currentWidthPixel.floatValue = standardWidth
         _currentHeightPixel.floatValue = standardHeight
         _currentOffsetXPixel.floatValue = 0F
-        _currentOffsetYPixel.floatValue = layoutSize.height / 2F - standardHeight / 2F
+        if (isBigVerticalImage) {
+            _currentOffsetYPixel.floatValue = 0F
+        } else {
+            _currentOffsetYPixel.floatValue = layoutSize.height / 2F - standardHeight / 2F
+        }
     }
 
     internal suspend fun animateToStandard() {
@@ -116,7 +126,7 @@ class ImageViewerState(
         if (layoutSize == Size.Zero) return
 
         val targetWidth = standardWidth * maximumScale
-        val targetHeight = targetWidth / aspectRatio
+        val targetHeight = targetWidth / imageAspectRatio
         var targetOffsetX = currentOffsetXPixel * maximumScale
         var targetOffsetY = layoutSize.height / 2F - targetHeight / 2F
 
@@ -142,7 +152,7 @@ class ImageViewerState(
 
     internal fun drag(dragAmount: Offset) {
         cancelAnimation()
-        if (exceed) {
+        if (exceed || isBigVerticalImage) {
             dragForVisit(dragAmount)
         } else {
             dragForExit(dragAmount)
@@ -351,3 +361,6 @@ private fun Float.equalsExactly(target: Float): Boolean {
 }
 
 private fun Velocity.toOffset() = Offset(x = x, y = y)
+
+private val Size.aspectRatio: Float
+    get() = width / height

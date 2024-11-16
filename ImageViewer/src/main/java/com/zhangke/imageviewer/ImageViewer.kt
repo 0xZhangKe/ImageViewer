@@ -69,7 +69,7 @@ fun ImageViewer(
                 )
             }
             .draggableInfinity(
-                enabled = state.exceed,
+                enabled = state.exceed || state.isBigVerticalImage,
                 onDrag = { offset ->
                     state.drag(offset)
                 },

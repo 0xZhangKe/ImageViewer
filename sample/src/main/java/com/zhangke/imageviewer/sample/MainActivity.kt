@@ -47,6 +47,17 @@ class MainActivity : ComponentActivity() {
                     onClick = {
                         ImageViewerActivity.open(
                             activity = this@MainActivity,
+                            imageId = R.drawable.big_vertical,
+                        )
+                    },
+                ) {
+                    Text(text = "Big Vertical Image")
+                }
+                Button(
+                    modifier = Modifier.padding(top = 16.dp),
+                    onClick = {
+                        ImageViewerActivity.open(
+                            activity = this@MainActivity,
                             imageId = R.drawable.vertical_demo_image,
                         )
                     },
