@@ -1,12 +1,12 @@
 [versions]
-agp = "7.4.2"
-kotlin = "1.8.20"
-coreKtx = "1.13.1"
+agp = "8.7.2"
+kotlin = "2.0.21"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-activityKtx = "1.9.1"
-activityCompose = "1.9.1"
+activityKtx = "1.9.3"
+activityCompose = "1.9.3"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -27,4 +27,6 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3",
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 
