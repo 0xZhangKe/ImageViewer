@@ -33,11 +33,13 @@ class ImagePagerActivity : ComponentActivity() {
         setContent {
             ImageViewerTheme {
                 val pagerState = rememberPagerState {
-                    4
+                    5
                 }
                 HorizontalPager(state = pagerState) { pageIndex ->
                     ImageViewer {
-                        val imageId = if (pageIndex % 2 == 0) {
+                        val imageId = if (pageIndex == 1) {
+                            R.drawable.big_vertical
+                        } else if (pageIndex % 2 == 0) {
                             R.drawable.vertical_demo_image
                         } else {
                             R.drawable.horizontal_demo_image

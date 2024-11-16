@@ -69,7 +69,8 @@ fun ImageViewer(
                 )
             }
             .draggableInfinity(
-                enabled = state.exceed || state.isBigVerticalImage,
+                exceed = state.exceed,
+                isBigVerticalImage = state.isBigVerticalImage,
                 onDrag = { offset ->
                     state.drag(offset)
                 },
@@ -121,13 +122,14 @@ fun ImageViewer(
 }
 
 private fun Modifier.draggableInfinity(
-    enabled: Boolean,
+    exceed: Boolean,
+    isBigVerticalImage: Boolean,
     onDrag: (dragAmount: Offset) -> Unit,
     onDragStopped: (velocity: Velocity) -> Unit,
 ): Modifier {
     val velocityTracker = VelocityTracker()
-    return Modifier.pointerInput(enabled) {
-        if (enabled) {
+    return Modifier.pointerInput(exceed || isBigVerticalImage) {
+        if (exceed) {
             detectDragGestures(
                 onDrag = { change, dragAmount ->
                     velocityTracker.addPointerInputChange(change)

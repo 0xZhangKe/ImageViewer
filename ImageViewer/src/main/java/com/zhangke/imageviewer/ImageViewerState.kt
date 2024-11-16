@@ -180,7 +180,7 @@ class ImageViewerState(
 
     internal suspend fun dragStop(initialVelocity: Velocity) {
         cancelAnimation()
-        if (!exceed) {
+        if (!exceed && !isBigVerticalImage) {
             dragStopForExit()
             return
         }
