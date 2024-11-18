@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import org.gradle.kotlin.dsl.sourceSets
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -7,7 +8,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.compose.compiler)
     alias(libs.plugins.jetbrains.compose)
-    id("maven-publish")
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.publish)
 }
 
 android {
